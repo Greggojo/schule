@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notenpunkte</title>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0e9f8e"><link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#14232b;--mute:#6b7c86;--line:#e2e8ec;--acc:#0e9f8e;--accbg:#dff5f1;--good:#1fa971;--mid:#b9770e;--bad:#d93c42;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f171b;--card:#182329;--ink:#e8f0f3;--mute:#8fa2ac;--line:#26343b;--acc:#34c7b4;--accbg:#14332f;--good:#3ccb8b;--mid:#f0b43a;--bad:#f26b70}}
+:root[data-theme="dark"]{--bg:#0f171b;--card:#182329;--ink:#e8f0f3;--mute:#8fa2ac;--line:#26343b;--acc:#34c7b4;--accbg:#14332f;--good:#3ccb8b;--mid:#f0b43a;--bad:#f26b70}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 15px/1.4 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 16px 8px}
+h1{margin:0 0 8px;font-size:22px;font-weight:800}
+.chips{display:flex;gap:6px;overflow-x:auto}
+.chip{padding:7px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;white-space:nowrap;color:var(--mute)}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+main{padding:6px 16px 110px;max-width:560px;margin:0 auto}
+.card{background:var(--card);border-radius:18px;padding:16px;margin:0 0 12px;border:1px solid var(--line)}
+.hero{background:var(--acc);color:#fff;border:0;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.big{font-size:56px;font-weight:800;line-height:1;letter-spacing:-1px}
+.hero small{display:block;opacity:.9;font-weight:700;margin-top:6px}
+.pill{background:rgba(255,255,255,.22);border-radius:99px;padding:6px 12px;font-weight:800;white-space:nowrap}
+.row{display:flex;align-items:center;gap:12px;width:100%;text-align:left}
+.dot{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:800;flex:none}
+.grow{flex:1;min-width:0}.nm{font-weight:800;font-size:16px}.mu{color:var(--mute);font-size:13px}
+h2{font-size:16px;font-weight:800;margin:0 0 10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--bg);border-radius:14px;padding:12px}.stat b{display:block;font-size:24px;font-weight:800}
+.gs{display:flex;flex-wrap:wrap;gap:8px}
+.g{min-width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:17px;position:relative}
+.g i{position:absolute;top:2px;right:5px;font-size:9px;font-style:normal;opacity:.8}
+.btn{display:block;width:100%;padding:14px;border-radius:14px;background:var(--acc);color:#fff;font-weight:800;text-align:center;margin:0 0 12px}
+.btn.ghost{background:var(--card);color:var(--acc);border:1px solid var(--line)}
+.btn.bad{background:var(--bad)}
+.link{color:var(--mute);text-align:center;display:block;margin:8px auto;font-size:13px}
+.back{color:var(--acc);font-weight:800;margin:4px 0 10px}
+.tip{margin:0;padding:0;list-style:none}.tip li{padding:10px 0;border-top:1px solid var(--line)}.tip li:first-child{border:0;padding-top:0}
+.bar{height:10px;border-radius:6px;background:var(--bg);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;border-radius:6px}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 10px calc(8px + env(safe-area-inset-bottom,0px));z-index:6}
+.nav button{flex:1;padding:8px;font-weight:800;color:var(--mute);border-radius:12px}.nav .on{color:var(--acc);background:var(--accbg)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sh{background:var(--card);width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:90%;overflow-y:auto}
+.seg{display:flex;gap:6px;margin:0 0 14px}.seg button{flex:1;padding:11px;border-radius:12px;background:var(--bg);font-weight:800;color:var(--mute)}.seg .on{background:var(--acc);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px}.pg button{padding:14px 0;border-radius:12px;background:var(--bg);font-weight:800;font-size:18px}.pg .on{outline:3px solid var(--ink)}
+input{width:100%;font:inherit;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin:0 0 12px}
+.empty{text-align:center;color:var(--mute);padding:26px 10px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px}.three .stat b{font-size:15px;overflow-wrap:anywhere}
+.k .stat b{font-size:19px;overflow-wrap:anywhere}
+.ht{width:100%;min-width:280px;border-collapse:separate;border-spacing:4px}.ht td{text-align:center;border-radius:8px;padding:9px 0;font-weight:800;font-size:13px;background:var(--bg)}.ht th{font-size:11px;color:var(--mute);font-weight:700}
+.seg button{padding:10px 4px;font-size:14px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<input type="file" id="fi" accept=".json,application/json" hidden>
+<script>
+const KEY='notenpunkte-v1';
+let S={subjects:[]},ui={sem:0,tab:'home',st:'verlauf',sub:null,sh:null,f:null};
+try{const r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f1=v=>v==null?'–':v.toFixed(1).replace('.',',');
+const note=p=>((17-p)/3).toFixed(1).replace('.',',');
+const col=p=>p==null?'var(--mute)':p>=10?'var(--good)':p>=5?'var(--mid)':'var(--bad)';
+const tint=p=>`background:color-mix(in srgb,${col(p)} 16%,transparent);color:${col(p)}`;
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+const P=gs=>gs.map(g=>g.p);
+function sAvgG(gs){const a=mean(P(gs.filter(g=>g.t=='t'))),b=mean(P(gs.filter(g=>g.t=='k')));return a==null?b:b==null?a:(a+b)/2}
+function ovG(gs){const m={};gs.forEach(g=>(m[g.sid]=m[g.sid]||[]).push(g));return mean(Object.values(m).map(sAvgG).filter(v=>v!=null))}
+const fg=s=>(ui.sem?s.grades.filter(g=>g.s==ui.sem):s.grades).slice().sort((a,b)=>a.s-b.s||a.id-b.id);
+const allG=sem=>S.subjects.flatMap(s=>s.grades.filter(g=>!sem||g.s==sem).map(g=>({...g,sid:s.id}))).sort((a,b)=>a.s-b.s||a.id-b.id);
+const ov=sem=>ovG(allG(sem));
+function need(gs,t,g){const T=P(gs.filter(x=>x.t==t)),O=mean(P(gs.filter(x=>x.t!=t)));const tn=O==null?g:2*g-O;return Math.ceil(tn*(T.length+1)-T.reduce((a,b)=>a+b,0)-1e-9)}
+
+function line(v){const W=320,H=150,L=26,R=10,T=10,B=8,w=W-L-R,h=H-T-B,y=q=>T+h-q/15*h,x=i=>L+(v.length<2?w/2:i*w/(v.length-1));
+let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+[0,5,10,15].forEach(q=>s+=`<line x1="${L}" x2="${W-R}" y1="${y(q)}" y2="${y(q)}" stroke="${q==5?'var(--bad)':'var(--line)'}" stroke-opacity="${q==5?.5:1}" stroke-dasharray="${q==5?'4 3':''}"/><text x="${L-5}" y="${y(q)+3}" text-anchor="end" font-size="9" fill="var(--mute)">${q}</text>`);
+if(v.length>1)s+=`<polyline fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round" points="${v.map((q,i)=>x(i)+','+y(q)).join(' ')}"/>`;
+v.forEach((q,i)=>s+=`<circle cx="${x(i)}" cy="${y(q)}" r="${v.length>14?2.5:4}" fill="${col(q)}"/>`);
+return s+'</svg>'}
+function bars(v,lab,fmt,c,H=130){const W=320,T=16,B=18,n=v.length,bw=W/n,h=H-T-B;
+return `<svg viewBox="0 0 ${W} ${H}" width="100%">`+v.map((q,i)=>{const bh=q?q/15*h:0,x=i*bw+bw*.18,w=bw*.64;return `<rect x="${x}" y="${T+h-bh}" width="${w}" height="${Math.max(bh,2)}" rx="3" fill="${c(q,i)}" opacity=".85"/>${q?`<text x="${x+w/2}" y="${T+h-bh-4}" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">${fmt(q)}</text>`:''}<text x="${x+w/2}" y="${H-4}" text-anchor="middle" font-size="9" fill="var(--mute)">${lab[i]}</text>`}).join('')+'</svg>'}
+
+function tipsSub(s){const gs=fg(s),a=sAvgG(gs),L=[];
+if(a==null)return ['Trage deine erste Note ein, dann erscheinen hier Ziele und Tipps.'];
+const g=Math.min(15,Math.floor(a)+1);
+if(a<5)L.push(`<b>Achtung:</b> Der Schnitt liegt unter 5 Punkten (Defizit). Erstes Ziel: mindestens 5 Punkte.`);
+if(a>=15)return ['Besser geht es nicht. Halte das Niveau.'];
+L.push(`<b>Empfohlenes Ziel:</b> Ø ${g} Punkte (aktuell ${f1(a)}).`);
+[['k','Klausur'],['t','Test']].forEach(([t,n])=>{const x=need(gs,t,g);L.push(x>15?`Nächste${t=='k'?'':'r'} ${n}: Mit einer einzelnen Note ist Ø ${g} nicht erreichbar, du brauchst mehrere gute Noten.`:`Nächste${t=='k'?'':'r'} ${n}: mindestens <b>${Math.max(x,0)} Punkte</b> für Ø ${g}.`)});
+const at=mean(P(gs.filter(x=>x.t=='t'))),ak=mean(P(gs.filter(x=>x.t=='k')));
+if(at!=null&&ak!=null&&Math.abs(at-ak)>=1.5)L.push(ak<at?`Klausuren (${f1(ak)}) sind schwächer als Tests (${f1(at)}). Beide zählen 50 %, also lohnt gezieltes Klausurtraining.`:`Tests (${f1(at)}) sind schwächer als Klausuren (${f1(ak)}). Regelmäßig mitarbeiten und Tests ernster nehmen.`);
+if(gs.length>=4){const l=mean(P(gs.slice(-3))),e=mean(P(gs.slice(0,-3)));if(l-e>=1)L.push(`Trend positiv: die letzten 3 Noten liegen ${f1(l-e)} Punkte über den früheren.`);else if(e-l>=1)L.push(`Trend fallend: die letzten 3 Noten liegen ${f1(e-l)} Punkte unter den früheren.`)}
+return L}
+function tipsAll(){const o=ov(ui.sem),L=[];if(o==null)return ['Sobald Noten eingetragen sind, siehst du hier, wo du dich am besten verbesserst.'];
+const rows=S.subjects.map(s=>({s,a:sAvgG(fg(s))})).filter(r=>r.a!=null).sort((p,q)=>p.a-q.a),n=rows.length,g=Math.min(15,Math.floor(o)+1);
+rows.filter(r=>r.a<5).forEach(r=>L.push(`<b>${esc(r.s.name)}</b> liegt unter 5 Punkten. Das hat Vorrang, um kein Defizit zu bekommen.`));
+if(o<15)L.push(`<b>Gesamtziel:</b> Ø ${g}. Dafür fehlen ${f1((g-o)*n)} Fachschnitt-Punkte, die du auf die schwächsten Fächer verteilen kannst.`);
+rows.slice(0,3).forEach(r=>{const d=Math.min(2,15-r.a);if(d>=.5)L.push(`<b>${esc(r.s.name)}:</b> von ${f1(r.a)} auf ${f1(r.a+d)} (+${f1(d)}) bringt dem Gesamtschnitt +${f1(d/n)}. Hier ist am meisten Luft nach oben.`)});
+const top=rows[n-1];if(n>1)L.push(`Stärkstes Fach ist <b>${esc(top.s.name)}</b> (${f1(top.a)}). Das Niveau halten, die Zeit lieber in schwächere Fächer stecken.`);
+const gl=allG(ui.sem),a=mean(P(gl.filter(x=>x.t=='t'))),b=mean(P(gl.filter(x=>x.t=='k')));
+if(a!=null&&b!=null&&Math.abs(a-b)>=1)L.push(b<a?`Insgesamt sind Klausuren schwächer (${f1(b)}) als Tests (${f1(a)}). Mehr Klausurvorbereitung bringt viel.`:`Insgesamt sind Tests schwächer (${f1(a)}) als Klausuren (${f1(b)}). Regelmäßig lernen zahlt sich aus.`);
+return L}
+const tipBox=L=>`<div class="card"><h2>Tipps</h2><ul class="tip">${L.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+
+function head(){return `<header><h1>Notenpunkte</h1><div class="chips">${[0,1,2,3,4].map(n=>`<button class="chip ${ui.sem==n?'on':''}" data-a="sem" data-v="${n}">${n?n+'. Semester':'Gesamt'}</button>`).join('')}</div></header>`}
+function nav(){return `<div class="nav"><button class="${ui.tab=='home'&&!ui.sub?'on':''}" data-a="tab" data-v="home">Übersicht</button><button class="${ui.tab=='stats'&&!ui.sub?'on':''}" data-a="tab" data-v="stats">Statistik</button></div>`}
+function hero(o,lab){return `<div class="card hero"><div><div class="big">${f1(o)}</div><small>${lab}</small></div>${o!=null?`<div class="pill">≈ Note ${note(o)}</div>`:''}</div>`}
+const med=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2};
+const sd=a=>{const m=mean(a);return m==null?null:Math.sqrt(mean(a.map(x=>(x-m)**2)))};
+const arrow=gs=>{if(gs.length<4)return '';const d=mean(P(gs.slice(-3)))-mean(P(gs.slice(0,-3)));return d>=1?'<span style="color:var(--good)">▲</span>':d<=-1?'<span style="color:var(--bad)">▼</span>':''};
+function dl(){const b=new Blob([JSON.stringify(S)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='noten-sicherung-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();S.bk=Date.now();save()}
+function home(){const o=ov(ui.sem),rows=S.subjects.map(s=>{const gs=fg(s);return {s,gs,a:sAvgG(gs)}}),v=rows.filter(r=>r.a!=null).sort((p,q)=>q.a-p.a),df=v.filter(r=>r.a<5).length,old=allG(0).length&&(!S.bk||Date.now()-S.bk>12096e5);
+return hero(o,'Gesamtschnitt in Punkten'+(ui.sem?' · '+ui.sem+'. Semester':''))+
+(v.length?`<div class="card three"><div class="stat"><span class="mu">Bestes Fach</span><b>${esc(v[0].s.name)}</b></div><div class="stat"><span class="mu">Schwächstes</span><b>${v.length>1?esc(v[v.length-1].s.name):'–'}</b></div><div class="stat"><span class="mu">Defizite</span><b style="color:${df?'var(--bad)':'var(--good)'}">${df}</b></div></div>`:'')+
+(rows.length?rows.map(r=>`<button class="card row" data-a="open" data-v="${r.s.id}"><span class="dot" style="${tint(r.a)}">${f1(r.a)}</span><span class="grow"><div class="nm">${esc(r.s.name)} ${arrow(r.gs)}</div><div class="mu">Tests Ø ${f1(mean(P(r.gs.filter(x=>x.t=='t'))))} · Klausuren Ø ${f1(mean(P(r.gs.filter(x=>x.t=='k'))))}</div><div class="bar"><i style="width:${(r.a||0)/15*100}%;background:${col(r.a)}"></i></div></span><span class="mu">›</span></button>`).join(''):`<div class="card empty">Noch kein Fach. Lege das erste an, zum Beispiel Deutsch.</div>`)+
+`<button class="btn ghost" data-a="addsub">+ Fach hinzufügen</button>
+<div class="card"><h2>Sicherung</h2><div class="mu" style="margin:0 0 10px;${old?'color:var(--mid);font-weight:700':''}">Letzte Sicherung: ${S.bk?new Date(S.bk).toLocaleDateString('de-DE'):'noch nie'}${old?'. Bitte jetzt sichern.':''}</div><div class="two"><button class="btn ghost" style="margin:0" data-a="bk">Speichern</button><button class="btn ghost" style="margin:0" data-a="imp">Laden</button></div></div>`}
+function detail(s){const gs=fg(s),a=sAvgG(gs),T=gs.filter(x=>x.t=='t'),K=gs.filter(x=>x.t=='k'),ser=gs.map((_,i)=>sAvgG(gs.slice(0,i+1)));
+const list=(arr,t)=>arr.length?`<div class="gs">${arr.map(g=>`<button class="g" style="${tint(g.p)}" data-a="grade" data-v="${g.id}">${g.p}<i>S${g.s}</i></button>`).join('')}</div>`:`<div class="mu">Noch keine ${t}.</div>`;
+return `<button class="back" data-a="back">‹ Zurück</button>`+hero(a,esc(s.name)+(ui.sem?' · '+ui.sem+'. Semester':''))+
+`<div class="card two"><div class="stat"><span class="mu">Tests (50 %)</span><b>${f1(mean(P(T)))}</b></div><div class="stat"><span class="mu">Klausuren (50 %)</span><b>${f1(mean(P(K)))}</b></div></div>
+<div class="card"><h2>Verlauf des Schnitts</h2>${ser.length?line(ser):'<div class="mu">Der Verlauf erscheint nach der ersten Note.</div>'}</div>
+<div class="card"><h2>Tests</h2>${list(T,'Tests')}</div><div class="card"><h2>Klausuren</h2>${list(K,'Klausuren')}</div>`+
+tipBox(tipsSub(s))+`<button class="btn" data-a="addgrade">+ Note eintragen</button><button class="link" data-a="delsub">Fach löschen</button>`}
+function stats(){const o=ov(ui.sem),gl=allG(ui.sem),p=P(gl),n=p.length,
+rows=S.subjects.map(s=>({s,gs:fg(s),a:sAvgG(fg(s))})).filter(r=>r.a!=null).sort((x,y)=>y.a-x.a),
+seg=`<div class="seg" style="gap:4px">${[['verlauf','Verlauf'],['faecher','Fächer'],['details','Details'],['tipps','Tipps']].map(([k,t])=>`<button class="${ui.st==k?'on':''}" data-a="st" data-v="${k}">${t}</button>`).join('')}</div>`,no='<div class="mu">Noch keine Noten.</div>';let c='';
+if(ui.st=='verlauf'){const ser=gl.map((_,i)=>ovG(gl.slice(0,i+1)));
+c=`<div class="card"><h2>Gesamtverlauf</h2>${ser.length?line(ser):no}</div><div class="card"><h2>Schnitt pro Semester</h2>${bars([1,2,3,4].map(ov),['1. Sem','2. Sem','3. Sem','4. Sem'],f1,q=>col(q))}</div><div class="card"><h2>Fächer nach Semester</h2><div style="overflow-x:auto"><table class="ht"><tr><th></th>${[1,2,3,4].map(k=>`<th>${k}. Sem</th>`).join('')}</tr>${S.subjects.map(s=>`<tr><th style="text-align:left;color:var(--ink)">${esc(s.name)}</th>${[1,2,3,4].map(k=>{const a=sAvgG(s.grades.filter(g=>g.s==k));return `<td style="${a==null?'':tint(a)}">${f1(a)}</td>`}).join('')}</tr>`).join('')}</table></div></div>`}
+else if(ui.st=='faecher')c=`<div class="card"><h2>Fachschnitt</h2>${rows.length?rows.map(r=>`<div style="margin:0 0 10px"><div class="row"><span class="grow nm" style="font-size:14px">${esc(r.s.name)}</span><b style="color:${col(r.a)}">${f1(r.a)}</b></div><div class="bar"><i style="width:${r.a/15*100}%;background:${col(r.a)}"></i></div></div>`).join(''):no}</div><div class="card"><h2>Tests und Klausuren je Fach</h2>${rows.length?rows.map(r=>`<div style="margin:0 0 12px"><div class="nm" style="font-size:14px">${esc(r.s.name)}</div>${[['Tests',mean(P(r.gs.filter(x=>x.t=='t')))],['Klausuren',mean(P(r.gs.filter(x=>x.t=='k')))]].map(([t,q])=>`<div class="row" style="gap:8px;margin-top:4px"><span class="mu" style="width:66px">${t}</span><div class="bar grow" style="margin:0"><i style="width:${(q||0)/15*100}%;background:${col(q)}"></i></div><b style="width:34px;text-align:right;font-size:13px">${f1(q)}</b></div>`).join('')}</div>`).join(''):no}</div>`;
+else if(ui.st=='details'){const cnt=Array.from({length:16},(_,i)=>p.filter(x=>x==i).length),T=gl.filter(g=>g.t=='t'),K=gl.filter(g=>g.t=='k'),
+st=[['Gesamtschnitt',f1(o)],['Median',f1(med(p))],['Beste Note',n?Math.max(...p):'–'],['Schlechteste Note',n?Math.min(...p):'–'],['Schwankung ±',f1(sd(p))],['Noten ab 10 Punkte',n?Math.round(p.filter(x=>x>=10).length/n*100)+' %':'–'],['Noten unter 5',n?p.filter(x=>x<5).length:'–'],['Tests / Klausuren',T.length+' / '+K.length],['Tests Ø',f1(mean(P(T)))],['Klausuren Ø',f1(mean(P(K)))],['Bestes Fach',rows.length?esc(rows[0].s.name):'–'],['Schwächstes Fach',rows.length>1?esc(rows[rows.length-1].s.name):'–']];
+c=`<div class="card two k">${st.map(([t,v])=>`<div class="stat"><span class="mu">${t}</span><b>${v}</b></div>`).join('')}</div><div class="card"><h2>Verteilung der Punkte</h2>${bars(cnt,cnt.map((_,i)=>i),q=>q,(q,i)=>col(i),110)}</div>`}
+else c=tipBox(tipsAll());
+return hero(o,'Gesamtschnitt in Punkten'+(ui.sem?' · '+ui.sem+'. Semester':''))+seg+c}
+
+function sheet(){const h=ui.sh;if(!h)return '';let c='';
+if(h.k=='sub')c=`<h2>Neues Fach</h2><input id="nm" placeholder="z. B. Deutsch" maxlength="30" autocomplete="off"><button class="btn" data-a="savesub">Fach anlegen</button>`;
+if(h.k=='add'){const f=ui.f;c=`<h2>Note eintragen</h2><div class="seg"><button class="${f.t=='t'?'on':''}" data-a="ft" data-v="t">Test</button><button class="${f.t=='k'?'on':''}" data-a="ft" data-v="k">Klausur</button></div><div class="seg">${[1,2,3,4].map(n=>`<button class="${f.s==n?'on':''}" data-a="fs" data-v="${n}">${n}. Sem</button>`).join('')}</div><div class="pg">${Array.from({length:16},(_,i)=>`<button class="${f.p===i?'on':''}" style="${tint(i)}" data-a="fp" data-v="${i}">${i}</button>`).join('')}</div><button class="btn" style="${f.p==null?'opacity:.45':''}" data-a="savegrade">Speichern</button>`}
+if(h.k=='grade'){const s=S.subjects.find(x=>x.id==ui.sub),g=s.grades.find(x=>x.id==h.id);c=`<h2>${g.p} Punkte · ${g.t=='k'?'Klausur':'Test'} · ${g.s}. Semester</h2><button class="btn bad" data-a="delgrade">Note löschen</button>`}
+if(h.k=='imp')c=`<h2>Sicherung laden?</h2><p class="mu">Die aktuellen Daten werden durch die Sicherung ersetzt (${ui.imp.subjects.length} Fächer).</p><button class="btn" data-a="doimp">Ja, laden</button>`;
+if(h.k=='err')c=`<h2>Datei nicht lesbar</h2><p class="mu">Bitte eine Sicherungsdatei (.json) dieser App wählen.</p>`;
+if(h.k=='delsub'){const s=S.subjects.find(x=>x.id==ui.sub);c=`<h2>„${esc(s.name)}“ löschen?</h2><p class="mu">Alle Noten dieses Fachs gehen verloren.</p><button class="btn bad" data-a="delsub2">Ja, löschen</button>`}
+return `<div class="ov" data-a="close"><div class="sh" data-stop>${c}<button class="link" data-a="close">Abbrechen</button></div></div>`}
+
+function render(){const s=ui.sub&&S.subjects.find(x=>x.id==ui.sub);if(ui.sub&&!s)ui.sub=null;
+$('#app').innerHTML=head()+'<main>'+(s?detail(s):ui.tab=='home'?home():stats())+'</main>'+nav()+sheet();
+const i=$('#nm');if(i)i.focus()}
+document.addEventListener('click',e=>{
+if(e.target.closest('[data-stop]')&&!e.target.closest('[data-a]'))return;
+const el=e.target.closest('[data-a]');if(!el)return;if(el.classList.contains('ov')&&e.target!==el)return;
+const a=el.dataset.a,v=el.dataset.v,s=S.subjects.find(x=>x.id==ui.sub);
+if(a=='sem')ui.sem=+v;
+else if(a=='tab'){ui.tab=v;ui.sub=null}
+else if(a=='open'){ui.sub=+v;window.scrollTo(0,0)}
+else if(a=='back')ui.sub=null;
+else if(a=='close')ui.sh=null;
+else if(a=='addsub')ui.sh={k:'sub'};
+else if(a=='savesub'){const n=$('#nm').value.trim();if(!n)return;const id=Date.now();S.subjects.push({id,name:n,grades:[]});save();ui.sh=null;ui.sub=id}
+else if(a=='addgrade'){ui.f={t:'k',s:ui.sem||1,p:null};ui.sh={k:'add'}}
+else if(a=='ft')ui.f.t=v;
+else if(a=='fs')ui.f.s=+v;
+else if(a=='fp')ui.f.p=+v;
+else if(a=='savegrade'){if(ui.f.p==null)return;s.grades.push({id:Date.now(),t:ui.f.t,s:ui.f.s,p:ui.f.p});save();ui.sh=null}
+else if(a=='grade')ui.sh={k:'grade',id:+v};
+else if(a=='delgrade'){s.grades=s.grades.filter(x=>x.id!=ui.sh.id);save();ui.sh=null}
+else if(a=='delsub')ui.sh={k:'delsub'};
+else if(a=='st')ui.st=v;
+else if(a=='bk')dl();
+else if(a=='imp'){$('#fi').click();return}
+else if(a=='doimp'){S=ui.imp;S.subjects.forEach(s=>s.grades=s.grades||[]);save();ui.sh=null;ui.sub=null}
+else if(a=='delsub2'){S.subjects=S.subjects.filter(x=>x.id!=ui.sub);save();ui.sh=null;ui.sub=null}
+render()});
+$('#fi').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.subjects))throw 0;ui.imp=d;ui.sh={k:'imp'}}catch(x){ui.sh={k:'err'}}render()};r.readAsText(f);e.target.value=''});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+render();
+</script>
+</body>
+</html>
